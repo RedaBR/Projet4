@@ -1,10 +1,12 @@
 {
   "images" : [
     {
+      "filename" : "Plus.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Plus@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
