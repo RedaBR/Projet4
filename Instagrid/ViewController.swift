@@ -55,7 +55,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate & UINavi
     }
     
     @objc func swipeAction() {
-        
+        let share = UIActivityViewController(activityItems: [img], applicationActivities:nil)
+        present(share, animated: true, completion: nil)
     }
     
     @IBAction func buttonSelected() {
