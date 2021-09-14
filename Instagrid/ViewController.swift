@@ -159,9 +159,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate & UINavi
             
             if (clickedImg == 0) {
                 img1G2.image = img.image
+                img1G2.contentMode = .scaleAspectFill
             } else if (clickedImg == 1) {
                 img2G2.image = img.image
+                img2G2.contentMode = .scaleAspectFill
             } else if(clickedImg == 2) {
+                img3G2.contentMode = .scaleAspectFill
                 img3G2.image = img.image }
             
             
@@ -169,11 +172,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate & UINavi
             
             if (clickedImg == 0) {
                 img1G3.image = img.image
+                img1G3.contentMode = .scaleAspectFill
             } else if (clickedImg == 1) {
+                img2G3.contentMode = .scaleAspectFill
                 img2G3.image = img.image
             } else if (clickedImg == 2) {
+                img3G3.contentMode = .scaleAspectFill
                 img3G3.image = img.image }
             else if (clickedImg == 3) {
+                img4G3.contentMode = .scaleAspectFill
                 img4G3.image = img.image   }
             
         default:break
