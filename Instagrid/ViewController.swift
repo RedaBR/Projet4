@@ -57,6 +57,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         selected3.isHidden = true
         viewBottomRight.isHidden = false
         viewTopLeft.isHidden = true
+        removeImage(imgSelected1: imgTopLeft.image! , imgSelected2: imgTopRight.image! , imgSelected3: ImgBottomLeft.image! , imgSelected4: imgBottomRight.image!)
+        
     }
     @IBOutlet weak var select1: UIImageView!
     
@@ -67,6 +69,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         selected3.isHidden = true
         viewTopLeft.isHidden = false
         viewBottomRight.isHidden = true
+        removeImage(imgSelected1: imgTopLeft.image! , imgSelected2: imgTopRight.image! , imgSelected3: ImgBottomLeft.image! , imgSelected4: imgBottomRight.image!)
+        
     }
     @IBOutlet weak var selected2: UIImageView!
     
@@ -77,6 +81,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         selected3.isHidden = false 
         viewBottomRight.isHidden = false
         viewTopLeft.isHidden = false
+        removeImage(imgSelected1: imgTopLeft.image! , imgSelected2: imgTopRight.image! , imgSelected3: ImgBottomLeft.image! , imgSelected4: imgBottomRight.image!)
+        
+        
     }
     @IBOutlet weak var selected3: UIImageView!
     
@@ -102,6 +109,19 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
             imgBottomRight.image = img.image
             imgBottomRight.contentMode = .scaleAspectFill
         }
+    }
+    
+    func removeImage(imgSelected1:UIImage , imgSelected2:UIImage , imgSelected3:UIImage , imgSelected4 : UIImage ) {
+        imgTopLeft.image = .init(imageLiteralResourceName: "Plus")
+        imgTopLeft.contentMode = .center
+        imgTopRight.image = .init(imageLiteralResourceName: "Plus")
+        imgTopRight.contentMode = .center
+        
+        ImgBottomLeft.image = .init(imageLiteralResourceName: "Plus")
+        ImgBottomLeft.contentMode = .center
+        imgBottomRight.image = .init(imageLiteralResourceName: "Plus")
+        imgBottomRight.contentMode = .center
+        
     }
 
        // let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: //#selector(self.swipeAction))
