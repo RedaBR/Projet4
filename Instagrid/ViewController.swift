@@ -17,6 +17,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     
     
     @IBOutlet var mainView: UIView!
+    
+    @IBOutlet weak var swipeView: UIView!
+    
 
     @IBOutlet weak var viewTopLeft: UIView!
     @IBOutlet weak var imgTopLeft: UIImageView!
@@ -93,8 +96,19 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
     mainView.isHidden = false
         viewTopLeft.isHidden = true
-     
+        
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
+         swipeGesture.direction = .up
+        swipeView.addGestureRecognizer(swipeGesture)
+        
 }
+    
+    @objc func swipeAction() {
+        let share = UIActivityViewController(activityItems: [img], applicationActivities:nil)
+       present(share, animated: true, completion: nil)
+        
+        
+   }
     func addImage () {
         if clickedImg == 0 {
             imgTopLeft.image = img.image
@@ -124,27 +138,18 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         
     }
 
-       // let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: //#selector(self.swipeAction))
-        //swipeGestureRecognizer.direction = .up
-       // swipeView.addGestureRecognizer(swipeGestureRecognizer)
-   // }
-    
-    //@objc func swipeAction() {
-       // let share = UIActivityViewController(activityItems: [img], applicationActivities:nil)
-      //  present(share, animated: true, completion: nil)
-   // }
 
     
  
     
     
- 
-    
-    
-    
-
-
 }
+    
+    
+
+
+
+
 extension ViewController : UIImagePickerControllerDelegate {
     
     func takePhoto() {
