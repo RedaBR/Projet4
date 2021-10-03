@@ -13,16 +13,21 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     var img = UIImageView()
     var state = 0
     var clickedImg = -1
-    
+    var landscape = Bool ()
+    var swipeGesture = UISwipeGestureRecognizer()
     
     
     @IBOutlet var mainView: UIView!
     
     @IBOutlet weak var swipeView: UIView!
+    @IBOutlet weak var swipeText: UILabel!
+    
+    @IBOutlet weak var arrow: UIImageView!
     
 
     @IBOutlet weak var viewTopLeft: UIView!
     @IBOutlet weak var imgTopLeft: UIImageView!
+    
     @IBAction func buttonTopLeft() {
         clickedImg = 0
         takePhoto()
@@ -89,26 +94,47 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         
     }
     @IBOutlet weak var selected3: UIImageView!
-    
-    
 
-
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to:size, with:coordinator)
+        checkOrientation()
+        
+    }
     override func viewDidLoad() {
     mainView.isHidden = false
         viewTopLeft.isHidden = true
         
-        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
-         swipeGesture.direction = .up
+        swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
         swipeView.addGestureRecognizer(swipeGesture)
+        checkOrientation()
+     
         
-}
+    }
+    
+    func checkOrientation() {
+        if UIDevice.current.orientation.isLandscape {
+            arrow.image = UIImage.init(named: "Arrow Left")
+            swipeText.text = "Swipe left to share"
+            swipeGesture.direction = .left
+        }
+        else if UIDevice.current.orientation.isPortrait {
+            arrow.image = UIImage.init(named: "Arrow Up")
+            swipeText.text = "Swipe up to share"
+            swipeGesture.direction = .up
+        }
+    }
     
     @objc func swipeAction() {
-        let share = UIActivityViewController(activityItems: [img], applicationActivities:nil)
+        if (img.image == nil) {
+            return
+        }
+        let share = UIActivityViewController(activityItems: [img.image!], applicationActivities:nil)
        present(share, animated: true, completion: nil)
         
         
    }
+    
+ 
     func addImage () {
         if clickedImg == 0 {
             imgTopLeft.image = img.image
@@ -137,19 +163,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         imgBottomRight.contentMode = .center
         
     }
-
-
-    
- 
-    
-    
 }
-    
-    
-
-
-
-
 extension ViewController : UIImagePickerControllerDelegate {
     
     func takePhoto() {
