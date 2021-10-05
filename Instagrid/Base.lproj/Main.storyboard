@@ -1001,6 +1001,7 @@
                     <connections>
                         <outlet property="ImgBottomLeft" destination="IH0-dl-7BV" id="4vJ-hW-avr"/>
                         <outlet property="arrow" destination="ysL-Wx-Ahw" id="JGa-qZ-1Wl"/>
+                        <outlet property="container" destination="lFa-AL-SPK" id="bFQ-q0-LHz"/>
                         <outlet property="imgBottomRight" destination="wE4-HC-ckB" id="yfw-el-ZTL"/>
                         <outlet property="imgTopLeft" destination="Oin-e4-lKe" id="duR-gL-TVu"/>
                         <outlet property="imgTopRight" destination="wN5-qd-W33" id="uLB-DQ-Ga9"/>

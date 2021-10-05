@@ -13,11 +13,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     var img = UIImageView()
     var state = 0
     var clickedImg = -1
-    var landscape = Bool ()
     var swipeGesture = UISwipeGestureRecognizer()
+  
     
     
     @IBOutlet var mainView: UIView!
+    
+    @IBOutlet weak var container: UIView!
+    
     
     @IBOutlet weak var swipeView: UIView!
     @IBOutlet weak var swipeText: UILabel!
@@ -65,7 +68,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         selected3.isHidden = true
         viewBottomRight.isHidden = false
         viewTopLeft.isHidden = true
-        removeImage(imgSelected1: imgTopLeft.image! , imgSelected2: imgTopRight.image! , imgSelected3: ImgBottomLeft.image! , imgSelected4: imgBottomRight.image!)
+        //removeImage(imgSelected1: imgTopLeft.image! , imgSelected2: imgTopRight.image! , imgSelected3: ImgBottomLeft.image! , imgSelected4: imgBottomRight.image!)
         
     }
     @IBOutlet weak var select1: UIImageView!
@@ -77,7 +80,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         selected3.isHidden = true
         viewTopLeft.isHidden = false
         viewBottomRight.isHidden = true
-        removeImage(imgSelected1: imgTopLeft.image! , imgSelected2: imgTopRight.image! , imgSelected3: ImgBottomLeft.image! , imgSelected4: imgBottomRight.image!)
+        //checkImg()
+        //removeImage(imgSelected1: imgTopLeft.image! , imgSelected2: imgTopRight.image! , imgSelected3: ImgBottomLeft.image! , imgSelected4: imgBottomRight.image!)
         
     }
     @IBOutlet weak var selected2: UIImageView!
@@ -89,7 +93,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         selected3.isHidden = false 
         viewBottomRight.isHidden = false
         viewTopLeft.isHidden = false
-        removeImage(imgSelected1: imgTopLeft.image! , imgSelected2: imgTopRight.image! , imgSelected3: ImgBottomLeft.image! , imgSelected4: imgBottomRight.image!)
+        //removeImage(imgSelected1: imgTopLeft.image! , imgSelected2: imgTopRight.image! , imgSelected3: ImgBottomLeft.image! , imgSelected4: imgBottomRight.image!)
         
         
     }
@@ -111,8 +115,45 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        checkOrientation()
+    }
+    @objc func swipeAction() {
+        if swipeGesture.direction == .up {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.container.transform = CGAffineTransform(translationX:0, y:self.view.frame.height)
+            },completion: {
+                _ in self.share()
+            }
+            )        } else if swipeGesture.direction == .left {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.container.transform = CGAffineTransform(translationX:self.view.frame.height, y:0)
+                },completion: {
+                    _ in self.share()
+                }
+                )
+                }
+    
+        if (img.image == nil) {
+            return
+        }
+   }
+    
+    func share () {
+        let share = UIActivityViewController(activityItems: [img.image!], applicationActivities:nil)
+       present(share, animated: true, completion: nil)
+        share.completionWithItemsHandler = { _, _, _, _ in  UIView.animate(withDuration: 0.3){
+            self.container.transform = .identity
+        }
+        
+        }
+        
+    }
+    
     func checkOrientation() {
         if UIDevice.current.orientation.isLandscape {
+         
             arrow.image = UIImage.init(named: "Arrow Left")
             swipeText.text = "Swipe left to share"
             swipeGesture.direction = .left
@@ -124,15 +165,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         }
     }
     
-    @objc func swipeAction() {
-        if (img.image == nil) {
-            return
-        }
-        let share = UIActivityViewController(activityItems: [img.image!], applicationActivities:nil)
-       present(share, animated: true, completion: nil)
-        
-        
-   }
+  
     
  
     func addImage () {
@@ -151,19 +184,19 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         }
     }
     
-    func removeImage(imgSelected1:UIImage , imgSelected2:UIImage , imgSelected3:UIImage , imgSelected4 : UIImage ) {
-        imgTopLeft.image = .init(imageLiteralResourceName: "Plus")
-        imgTopLeft.contentMode = .center
-        imgTopRight.image = .init(imageLiteralResourceName: "Plus")
-        imgTopRight.contentMode = .center
+    //func removeImage(imgSelected1:UIImage , imgSelected2:UIImage , imgSelected3:UIImage , imgSelected4 : UIImage ) {
+        //imgTopLeft.image = .init(imageLiteralResourceName: "Plus")
+        //imgTopLeft.contentMode = .center
+       // imgTopRight.image = .init(imageLiteralResourceName: "Plus")
+        //imgTopRight.contentMode = .center
         
-        ImgBottomLeft.image = .init(imageLiteralResourceName: "Plus")
-        ImgBottomLeft.contentMode = .center
-        imgBottomRight.image = .init(imageLiteralResourceName: "Plus")
-        imgBottomRight.contentMode = .center
+        //ImgBottomLeft.image = .init(imageLiteralResourceName: "Plus")
+       // ImgBottomLeft.contentMode = .center
+        //imgBottomRight.image = .init(imageLiteralResourceName: "Plus")
+        //imgBottomRight.contentMode = .center
         
     }
-}
+
 extension ViewController : UIImagePickerControllerDelegate {
     
     func takePhoto() {
